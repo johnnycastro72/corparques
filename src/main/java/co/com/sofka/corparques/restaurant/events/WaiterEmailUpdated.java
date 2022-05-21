@@ -4,11 +4,11 @@ import co.com.sofka.corparques.restaurant.values.WaiterId;
 import co.com.sofka.corparques.shared.Email;
 import co.com.sofka.domain.generic.DomainEvent;
 
-public class RestaurantWaiterEmailUpdated extends DomainEvent {
+public class WaiterEmailUpdated extends DomainEvent {
     private final WaiterId waiterId;
     private final Email email;
 
-    public RestaurantWaiterEmailUpdated(WaiterId waiterId, Email email) {
+    public WaiterEmailUpdated(WaiterId waiterId, Email email) {
         super("corparques.sofka.restaurantwaiteremailupdated");
         this.waiterId = waiterId;
         this.email = email;
