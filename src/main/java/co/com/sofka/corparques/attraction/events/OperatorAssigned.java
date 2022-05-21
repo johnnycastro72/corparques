@@ -5,7 +5,7 @@ import co.com.sofka.corparques.attraction.values.OperatorId;
 import co.com.sofka.domain.generic.DomainEvent;
 
 public class OperatorAssigned extends DomainEvent {
-    public OperatorAssigned(AttractionId attractionId, OperatorId operatorId) {
+    public OperatorAssigned(OperatorId operatorId) {
         super("corparques.sofka.operatorassigned");
     }
 }

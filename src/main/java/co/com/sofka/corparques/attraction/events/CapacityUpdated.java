@@ -5,7 +5,7 @@ import co.com.sofka.corparques.attraction.values.Capacity;
 import co.com.sofka.domain.generic.DomainEvent;
 
 public class CapacityUpdated extends DomainEvent {
-    public CapacityUpdated(AttractionId attractionId, Capacity capacity) {
+    public CapacityUpdated(Capacity capacity) {
         super("corparques.sofka.capacityupdated");
     }
 }
