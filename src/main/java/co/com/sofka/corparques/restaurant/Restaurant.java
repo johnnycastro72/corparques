@@ -11,6 +11,7 @@ import co.com.sofka.domain.generic.DomainEvent;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 public class Restaurant extends AggregateEvent<RestaurantId> {
@@ -109,6 +110,27 @@ public class Restaurant extends AggregateEvent<RestaurantId> {
         Objects.requireNonNull(tableId);
         Objects.requireNonNull(numberOfChairs);
         appendChange(new TableNumberOfChairsChanged(tableId, numberOfChairs)).apply();
+    }
+
+    protected Optional<RestaurantCustomer> getRestaurantCustomerById(CustomerId customerId) {
+        return customers()
+                .stream()
+                .filter(customer -> customer.identity().equals(customerId))
+                .findFirst();
+    }
+
+    protected Optional<Waiter> getWaiterById(WaiterId waiterId) {
+        return waiters()
+                .stream()
+                .filter(waiter -> waiter.identity().equals(waiterId))
+                .findFirst();
+    }
+
+    protected Optional<Table> getTableById(TableId tableId) {
+        return tables()
+                .stream()
+                .filter(table -> table.identity().equals(tableId))
+                .findFirst();
     }
 
     public Name name() {
