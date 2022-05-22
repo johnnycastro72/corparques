@@ -32,7 +32,7 @@
 ## 🧐 About <a name = "about"></a>
 
 For this challenge I used as a base Mundo Aventura a theme park located in Bogota, I focused on the attractions and restaurants, to meet the requirements were implemented
-16 use cases triggered by commands and 2 use cases triggered by events.
+15 use cases triggered by commands and 2 use cases triggered by events.
 
 
 ### Prerequisites
