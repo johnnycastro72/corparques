@@ -86,14 +86,14 @@ public class Attraction extends AggregateEvent<AttractionId> {
         appendChange(new AttractionCustomerEmailUpdated(customerId, email)).apply();
     }
 
-    private void ChangeAttractionPassportUser(AttractionId attractionId, CustomerId customerId, IsPassportUser isPassportUser) {
+    public void ChangeAttractionPassportUser(AttractionId attractionId, CustomerId customerId, IsPassportUser isPassportUser) {
         Objects.requireNonNull(attractionId);
         Objects.requireNonNull(customerId);
         Objects.requireNonNull(isPassportUser);
         appendChange(new AttractionPassportUserChanged(attractionId, customerId, isPassportUser)).apply();
     }
 
-    private void UpdateOperatorPhone(OperatorId operatorId, Phone phone) {
+    public void UpdateOperatorPhone(OperatorId operatorId, Phone phone) {
         Objects.requireNonNull(operatorId);
         Objects.requireNonNull(phone);
         appendChange(new OperatorPhoneUpdated(operatorId, phone)).apply();
@@ -153,4 +153,5 @@ public class Attraction extends AggregateEvent<AttractionId> {
     public Set<AttractionCustomer> customers() {
         return customers;
     }
+
 }
