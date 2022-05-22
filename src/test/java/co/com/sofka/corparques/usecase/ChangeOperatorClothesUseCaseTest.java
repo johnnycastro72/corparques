@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -52,6 +53,7 @@ class ChangeOperatorClothesUseCaseTest {
         Assertions.assertEquals("ddddd",event.aggregateRootId());
         Assertions.assertEquals("xxxxx",event.operatorId().value());
         Assertions.assertEquals("Uniforme Azul",event.clothes().value());
+        Mockito.verify(repository).getEventsBy(command.attractionId().value());
 
     }
 

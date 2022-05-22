@@ -4,19 +4,26 @@ import co.com.sofka.corparques.domain.generic.values.CustomerId;
 import co.com.sofka.corparques.domain.generic.values.Email;
 import co.com.sofka.corparques.domain.generic.values.Name;
 import co.com.sofka.corparques.domain.generic.values.Phone;
+import co.com.sofka.corparques.domain.restaurant.values.RestaurantId;
 import co.com.sofka.domain.generic.Command;
 
 public class AddRestaurantCustomer extends Command {
+    private final RestaurantId restaurantId;
     private final CustomerId customerId;
     private final Name name;
     private final Email email;
     private final Phone phone;
 
-    public AddRestaurantCustomer(CustomerId customerId, Name name, Email email, Phone phone) {
+    public AddRestaurantCustomer(RestaurantId restaurantId, CustomerId customerId, Name name, Email email, Phone phone) {
+        this.restaurantId = restaurantId;
         this.customerId = customerId;
         this.name = name;
         this.email = email;
         this.phone = phone;
+    }
+
+    public RestaurantId restaurantId() {
+        return restaurantId;
     }
 
     public CustomerId customerId() {

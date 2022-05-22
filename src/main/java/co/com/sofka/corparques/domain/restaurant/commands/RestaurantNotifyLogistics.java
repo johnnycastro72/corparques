@@ -1,23 +1,23 @@
 package co.com.sofka.corparques.domain.restaurant.commands;
 
+import co.com.sofka.corparques.domain.generic.values.Message;
 import co.com.sofka.corparques.domain.restaurant.values.RestaurantId;
-import co.com.sofka.corparques.domain.restaurant.values.TableId;
 import co.com.sofka.domain.generic.Command;
 
-public class RemoveTable extends Command {
+public class RestaurantNotifyLogistics extends Command {
     private final RestaurantId restaurantId;
-    private final TableId tableId;
+    private final Message message;
 
-    public RemoveTable(RestaurantId restaurantId, TableId tableId) {
+    public RestaurantNotifyLogistics(RestaurantId restaurantId, Message message) {
         this.restaurantId = restaurantId;
-        this.tableId = tableId;
+        this.message = message;
     }
 
     public RestaurantId restaurantId() {
         return restaurantId;
     }
 
-    public TableId tableId() {
-        return tableId;
+    public Message message() {
+        return message;
     }
 }

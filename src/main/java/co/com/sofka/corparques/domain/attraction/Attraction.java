@@ -2,10 +2,7 @@ package co.com.sofka.corparques.domain.attraction;
 
 import co.com.sofka.corparques.domain.attraction.events.*;
 import co.com.sofka.corparques.domain.attraction.values.*;
-import co.com.sofka.corparques.domain.generic.values.CustomerId;
-import co.com.sofka.corparques.domain.generic.values.Email;
-import co.com.sofka.corparques.domain.generic.values.Name;
-import co.com.sofka.corparques.domain.generic.values.Phone;
+import co.com.sofka.corparques.domain.generic.values.*;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
@@ -130,6 +127,12 @@ public class Attraction extends AggregateEvent<AttractionId> {
         Objects.requireNonNull(cashierId);
         Objects.requireNonNull(email);
         appendChange(new CashierEmailUpdated(attractionId, cashierId, email)).apply();
+    }
+
+    public void NotifyLogistics(AttractionId attractionId, Message message) {
+        Objects.requireNonNull(attractionId);
+        Objects.requireNonNull(message);
+        appendChange(new LogisticsNotified(attractionId, message)).apply();
     }
 
     protected Optional<AttractionCustomer> getCustomerById(CustomerId customerId) {

@@ -1,11 +1,8 @@
 package co.com.sofka.corparques.domain.restaurant;
 
+import co.com.sofka.corparques.domain.generic.values.*;
 import co.com.sofka.corparques.domain.restaurant.events.*;
 import co.com.sofka.corparques.domain.restaurant.values.*;
-import co.com.sofka.corparques.domain.generic.values.CustomerId;
-import co.com.sofka.corparques.domain.generic.values.Email;
-import co.com.sofka.corparques.domain.generic.values.Name;
-import co.com.sofka.corparques.domain.generic.values.Phone;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
@@ -38,78 +35,96 @@ public class Restaurant extends AggregateEvent<RestaurantId> {
         return restaurant;
     }
 
-    public void AddRestaurantCustomer(CustomerId customerId, Name name, Email email, Phone phone) {
+    public void AddRestaurantCustomer(RestaurantId restaurantId, CustomerId customerId, Name name, Email email, Phone phone) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(customerId);
         Objects.requireNonNull(name);
         Objects.requireNonNull(email);
         Objects.requireNonNull(phone);
-        appendChange(new RestaurantCustomerAdded(customerId, name, email, phone)).apply();
+        appendChange(new RestaurantCustomerAdded(restaurantId, customerId, name, email, phone)).apply();
     }
 
-    public void RemoveRestaurantCustomer(CustomerId customerId) {
+    public void RemoveRestaurantCustomer(RestaurantId restaurantId, CustomerId customerId) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(customerId);
-        appendChange(new RestaurantCustomerRemoved(customerId)).apply();
+        appendChange(new RestaurantCustomerRemoved(restaurantId, customerId)).apply();
     }
 
-    public void AddWaiter(WaiterId waiterId, Name name, Email email, Phone phone) {
+    public void AddWaiter(RestaurantId restaurantId, WaiterId waiterId, Name name, Email email, Phone phone) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(waiterId);
         Objects.requireNonNull(name);
         Objects.requireNonNull(email);
         Objects.requireNonNull(phone);
-        appendChange(new WaiterAdded(waiterId, name, email, phone)).apply();
+        appendChange(new WaiterAdded(restaurantId, waiterId, name, email, phone)).apply();
     }
 
-    public void RemoveWaiter(WaiterId waiterId) {
+    public void RemoveWaiter(RestaurantId restaurantId, WaiterId waiterId) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(waiterId);
-        appendChange(new WaiterRemoved(waiterId)).apply();
+        appendChange(new WaiterRemoved(restaurantId, waiterId)).apply();
     }
 
-    public void AddTable(TableId tableId, Color color, NumberOfChairs numberOfChairs) {
+    public void AddTable(RestaurantId restaurantId, TableId tableId, Color color, NumberOfChairs numberOfChairs) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(tableId);
         Objects.requireNonNull(color);
         Objects.requireNonNull(numberOfChairs);
-        appendChange(new TableAdded(tableId, color, numberOfChairs)).apply();
+        appendChange(new TableAdded(restaurantId, tableId, color, numberOfChairs)).apply();
     }
 
-    public void RemoveTable(TableId tableId) {
+    public void RemoveTable(RestaurantId restaurantId, TableId tableId) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(tableId);
-        appendChange(new TableRemoved(tableId)).apply();
+        appendChange(new TableRemoved(restaurantId, tableId)).apply();
     }
 
-    public void UpdateRestaurantCustomerPhone(CustomerId customerId, Phone phone) {
+    public void UpdateRestaurantCustomerPhone(RestaurantId restaurantId, CustomerId customerId, Phone phone) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(customerId);
         Objects.requireNonNull(phone);
-        appendChange(new RestaurantCustomerPhoneUpdated(customerId, phone)).apply();
+        appendChange(new RestaurantCustomerPhoneUpdated(restaurantId, customerId, phone)).apply();
     }
 
-    public void UpdateRestaurantCustomerEmail(CustomerId customerId, Email email) {
+    public void UpdateRestaurantCustomerEmail(RestaurantId restaurantId, CustomerId customerId, Email email) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(customerId);
         Objects.requireNonNull(email);
-        appendChange(new RestaurantCustomerEmailUpdated(customerId, email)).apply();
+        appendChange(new RestaurantCustomerEmailUpdated(restaurantId, customerId, email)).apply();
     }
 
-    public void UpdateWaiterPhone(WaiterId waiterId, Phone phone) {
+    public void UpdateWaiterPhone(RestaurantId restaurantId, WaiterId waiterId, Phone phone) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(waiterId);
         Objects.requireNonNull(phone);
-        appendChange(new WaiterPhoneUpdated(waiterId, phone)).apply();
+        appendChange(new WaiterPhoneUpdated(restaurantId, waiterId, phone)).apply();
     }
 
-    public void UpdateWaiterEmail(WaiterId waiterId, Email email) {
+    public void UpdateWaiterEmail(RestaurantId restaurantId, WaiterId waiterId, Email email) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(waiterId);
         Objects.requireNonNull(email);
-        appendChange(new WaiterEmailUpdated(waiterId, email)).apply();
+        appendChange(new WaiterEmailUpdated(restaurantId, waiterId, email)).apply();
     }
 
-    public void ChangeTableColor(TableId tableId, Color color) {
+    public void ChangeTableColor(RestaurantId restaurantId, TableId tableId, Color color) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(tableId);
         Objects.requireNonNull(color);
-        appendChange(new TableColorChanged(tableId, color)).apply();
+        appendChange(new TableColorChanged(restaurantId, tableId, color)).apply();
     }
 
-    public void ChangeTableNumberOfChairs(TableId tableId, NumberOfChairs numberOfChairs) {
+    public void ChangeTableNumberOfChairs(RestaurantId restaurantId, TableId tableId, NumberOfChairs numberOfChairs) {
+        Objects.requireNonNull(restaurantId);
         Objects.requireNonNull(tableId);
         Objects.requireNonNull(numberOfChairs);
-        appendChange(new TableNumberOfChairsChanged(tableId, numberOfChairs)).apply();
+        appendChange(new TableNumberOfChairsChanged(restaurantId, tableId, numberOfChairs)).apply();
+    }
+
+    public void RestaurantNotifyLogistics(RestaurantId restaurantId, Message message) {
+        Objects.requireNonNull(restaurantId);
+        Objects.requireNonNull(message);
+        appendChange(new LogisticsByRestaurantNotified(restaurantId, message)).apply();
     }
 
     protected Optional<RestaurantCustomer> getRestaurantCustomerById(CustomerId customerId) {

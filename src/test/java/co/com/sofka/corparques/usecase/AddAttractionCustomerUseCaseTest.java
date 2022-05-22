@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
@@ -66,6 +67,7 @@ class AddAttractionCustomerUseCaseTest {
         Assertions.assertEquals(LocalDateTime.of(1995, 04, 25, 6, 15),event.birthDate().value());
         Assertions.assertEquals(180D,event.height().value());
         Assertions.assertEquals(false,event.isPassportUser().value());
+        Mockito.verify(repository).getEventsBy(command.attractionId().value());
 
     }
 

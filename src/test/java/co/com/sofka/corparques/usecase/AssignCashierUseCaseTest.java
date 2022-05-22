@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -33,8 +34,8 @@ class AssignCashierUseCaseTest {
     @Test
     void AssignCashierHappyPass() {
         // Arrange
-        AttractionId attractionId = AttractionId.of("sssss");
-        CashierId cashierId = CashierId.of("ddddd");
+        AttractionId attractionId = AttractionId.of("ddddd");
+        CashierId cashierId = CashierId.of("sssss");
         var command = new AssignCashier(attractionId, cashierId);
 
         when(repository.getEventsBy("ddddd")).thenReturn(history());
@@ -50,8 +51,9 @@ class AssignCashierUseCaseTest {
 
         // Assert
         var event = (CashierAssigned)events.get(0);
-        Assertions.assertEquals("sssss", event.aggregateRootId());
-        Assertions.assertEquals("ddddd", event.cashierId().value());
+        Assertions.assertEquals("ddddd", event.aggregateRootId());
+        Assertions.assertEquals("sssss", event.cashierId().value());
+        Mockito.verify(repository).getEventsBy(command.attractionId().value());
     }
 
     private List<DomainEvent> history() {

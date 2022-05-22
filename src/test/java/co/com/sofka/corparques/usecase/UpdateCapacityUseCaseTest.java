@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -52,6 +53,7 @@ class UpdateCapacityUseCaseTest {
         var event = (CapacityUpdated)events.get(0);
         Assertions.assertEquals("ddddd",event.aggregateRootId());
         Assertions.assertEquals(30,event.capacity().value());
+        Mockito.verify(repository).getEventsBy(command.attractionId().value());
 
     }
 

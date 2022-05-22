@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -38,7 +39,7 @@ class AssignOperatorUseCaseTest {
         OperatorId operatorId = OperatorId.of("ddddd");
         var command = new AssignOperator(attractionId, operatorId);
 
-        when(repository.getEventsBy("ddddd")).thenReturn(history());
+        when(repository.getEventsBy("sssss")).thenReturn(history());
         useCase.addRepository(repository);
 
         // Act
@@ -53,10 +54,11 @@ class AssignOperatorUseCaseTest {
         var event = (OperatorAssigned)events.get(0);
         Assertions.assertEquals("sssss", event.aggregateRootId());
         Assertions.assertEquals("ddddd", event.operatorId().value());
+        Mockito.verify(repository).getEventsBy(command.attractionId().value());
     }
 
     private List<DomainEvent> history() {
-        AttractionId attractionId = AttractionId.of("ddddd");
+        AttractionId attractionId = AttractionId.of("sssss");
         Name name = new Name("Aviones");
         Capacity capacity = new Capacity(20);
         MinimumHeight minimumHeight = new MinimumHeight(90D);
@@ -65,7 +67,7 @@ class AssignOperatorUseCaseTest {
 
         var event = new AttractionCreated(attractionId, name, capacity, minimumHeight, operatorId, cashierId);
 
-        event.setAggregateRootId("ddddd");
+        event.setAggregateRootId("sssss");
 
         return List.of(event);
     }

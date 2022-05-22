@@ -10,7 +10,7 @@ public class AssignOperatorUseCase extends UseCase<RequestCommand<AssignOperator
     @Override
     public void executeUseCase(RequestCommand<AssignOperator> assignOperatorRequestCommand) {
         var command = assignOperatorRequestCommand.getCommand();
-        var attraction = Attraction.from(command.attractionId(), repository().getEventsBy(command.operatorId().value()));
+        var attraction = Attraction.from(command.attractionId(), repository().getEventsBy(command.attractionId().value()));
         attraction.AssignOperator(command.attractionId(), command.operatorId());
 
         emit().onResponse(new ResponseEvents(attraction.getUncommittedChanges()));

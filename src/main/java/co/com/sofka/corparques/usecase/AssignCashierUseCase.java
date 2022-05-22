@@ -10,7 +10,7 @@ public class AssignCashierUseCase extends UseCase<RequestCommand<AssignCashier>,
     @Override
     public void executeUseCase(RequestCommand<AssignCashier> assignCashierRequestCommand) {
         var command = assignCashierRequestCommand.getCommand();
-        var attraction = Attraction.from(command.attractionId(), repository().getEventsBy(command.cashierId().value()));
+        var attraction = Attraction.from(command.attractionId(), repository().getEventsBy(command.attractionId().value()));
         attraction.AssignCashier(command.attractionId(), command.cashierId());
 
         emit().onResponse(new ResponseEvents(attraction.getUncommittedChanges()));
