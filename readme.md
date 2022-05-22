@@ -34,6 +34,7 @@
 For this challenge I used as a base Mundo Aventura a theme park located in Bogota, I focused on the attractions and restaurants, to meet the requirements were implemented
 15 use cases triggered by commands and 2 use cases triggered by events.
 
+<img width="1024" alt="To Do" src="https://github.com/johnnycastro72/corparques/blob/main/Evidencia%20de%20pruebas%20ejecutadas.png">
 
 ### Prerequisites
 
