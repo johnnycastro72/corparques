@@ -105,10 +105,11 @@ public class Attraction extends AggregateEvent<AttractionId> {
         appendChange(new OperatorEmailUpdated(operatorId, email)).apply();
     }
 
-    public void ChangeOperatorClothes(OperatorId operatorId, Clothes clothes) {
+    public void ChangeOperatorClothes(AttractionId attractionId, OperatorId operatorId, Clothes clothes) {
+        Objects.requireNonNull(attractionId);
         Objects.requireNonNull(operatorId);
         Objects.requireNonNull(clothes);
-        appendChange(new OperatorClothesChanged(operatorId, clothes)).apply();
+        appendChange(new OperatorClothesChanged(attractionId, operatorId, clothes)).apply();
     }
 
     public void UpdateCashierPhone(CashierId cashierId, Phone phone) {

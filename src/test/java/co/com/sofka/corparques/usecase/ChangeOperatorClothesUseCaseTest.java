@@ -3,11 +3,11 @@ package co.com.sofka.corparques.usecase;
 import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.repository.DomainEventRepository;
 import co.com.sofka.business.support.RequestCommand;
-import co.com.sofka.corparques.domain.attraction.commands.ChangeAttractionPassportUser;
+import co.com.sofka.corparques.domain.attraction.commands.ChangeOperatorClothes;
 import co.com.sofka.corparques.domain.attraction.events.AttractionCreated;
 import co.com.sofka.corparques.domain.attraction.events.AttractionPassportUserChanged;
+import co.com.sofka.corparques.domain.attraction.events.OperatorClothesChanged;
 import co.com.sofka.corparques.domain.attraction.values.*;
-import co.com.sofka.corparques.domain.generic.values.CustomerId;
 import co.com.sofka.corparques.domain.generic.values.Name;
 import co.com.sofka.domain.generic.DomainEvent;
 import org.junit.jupiter.api.Assertions;
@@ -22,20 +22,20 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ChangeAttractionPassportUserUseCaseTest {
+class ChangeOperatorClothesUseCaseTest {
     @InjectMocks
-    private ChangeAttractionPassportUserUseCase useCase;
+    private ChangeOperatorClothesUseCase useCase;
 
     @Mock
     private DomainEventRepository repository;
 
     @Test
-    void changeAttractionPassportUserHappyPass() {
+    void changeOperatorClothesHappyPass() {
         // Arrange
         AttractionId attractionId = AttractionId.of("ddddd");
-        CustomerId customerId = CustomerId.of("xxxxx");
-        IsPassportUser isPassportUser = new IsPassportUser(true);
-        var command = new ChangeAttractionPassportUser(attractionId, customerId, isPassportUser);
+        OperatorId operatorId = OperatorId.of("xxxxx");
+        Clothes clothes = new Clothes("Uniforme Azul");
+        var command = new ChangeOperatorClothes(attractionId, operatorId, clothes);
 
         when(repository.getEventsBy("ddddd")).thenReturn(history());
         useCase.addRepository(repository);
@@ -48,10 +48,10 @@ class ChangeAttractionPassportUserUseCaseTest {
                 .getDomainEvents();
 
         // Assert
-        var event = (AttractionPassportUserChanged)events.get(0);
+        var event = (OperatorClothesChanged)events.get(0);
         Assertions.assertEquals("ddddd",event.aggregateRootId());
-        Assertions.assertEquals("xxxxx",event.customerId().value());
-        Assertions.assertEquals(true,event.isPassportUser().value());
+        Assertions.assertEquals("xxxxx",event.operatorId().value());
+        Assertions.assertEquals("Uniforme Azul",event.clothes().value());
 
     }
 
