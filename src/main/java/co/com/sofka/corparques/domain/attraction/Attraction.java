@@ -39,9 +39,10 @@ public class Attraction extends AggregateEvent<AttractionId> {
         return attraction;
     }
 
-    public void UpdateCapacity(Capacity capacity) {
+    public void UpdateCapacity(AttractionId attractionId, Capacity capacity) {
+        Objects.requireNonNull(attractionId);
         Objects.requireNonNull(capacity);
-        appendChange(new CapacityUpdated(capacity)).apply();
+        appendChange(new CapacityUpdated(attractionId, capacity)).apply();
     }
 
     public void AssignOperator(AttractionId attractionId, OperatorId operatorId) {
