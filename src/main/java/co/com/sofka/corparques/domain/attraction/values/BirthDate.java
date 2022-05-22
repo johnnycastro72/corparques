@@ -3,15 +3,16 @@ package co.com.sofka.corparques.domain.attraction.values;
 import co.com.sofka.domain.generic.ValueObject;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
 public class BirthDate implements ValueObject {
-    private final Date value;
+    private final LocalDateTime value;
 
-    public BirthDate(Date value) {
+    public BirthDate(LocalDateTime value) {
         this.value = Objects.requireNonNull(value, "The date cannot be null");
-        if(value.after(new Date(Instant.now().toEpochMilli()))){
+        if(value.isAfter(LocalDateTime.now())){
             throw new IllegalArgumentException("The birth date must be before the current date");
         }
     }

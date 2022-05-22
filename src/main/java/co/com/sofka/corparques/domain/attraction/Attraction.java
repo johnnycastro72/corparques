@@ -44,17 +44,20 @@ public class Attraction extends AggregateEvent<AttractionId> {
         appendChange(new CapacityUpdated(capacity)).apply();
     }
 
-    public void AssignOperator(OperatorId operatorId) {
+    public void AssignOperator(AttractionId attractionId, OperatorId operatorId) {
+        Objects.requireNonNull(attractionId);
         Objects.requireNonNull(operatorId);
-        appendChange(new OperatorAssigned(operatorId)).apply();
+        appendChange(new OperatorAssigned(attractionId, operatorId)).apply();
     }
 
-    public void AssignCashier(CashierId cashierId) {
+    public void AssignCashier(AttractionId attractionId, CashierId cashierId) {
+        Objects.requireNonNull(attractionId);
         Objects.requireNonNull(cashierId);
-        appendChange(new CashierAssigned(cashierId)).apply();
+        appendChange(new CashierAssigned(attractionId, cashierId)).apply();
     }
 
-    public void AddAttractionCustomer(CustomerId customerId, Name name, Email email, Phone phone, BirthDate birthDate, Height height, IsPassportUser isPassportUser) {
+    public void AddAttractionCustomer(AttractionId attractionId, CustomerId customerId, Name name, Email email, Phone phone, BirthDate birthDate, Height height, IsPassportUser isPassportUser) {
+        Objects.requireNonNull(attractionId);
         Objects.requireNonNull(customerId);
         Objects.requireNonNull(name);
         Objects.requireNonNull(email);
@@ -62,7 +65,7 @@ public class Attraction extends AggregateEvent<AttractionId> {
         Objects.requireNonNull(birthDate);
         Objects.requireNonNull(height);
         Objects.requireNonNull(isPassportUser);
-        appendChange(new AttractionCustomerAdded(customerId, name, email, phone, birthDate, height, isPassportUser)).apply();
+        appendChange(new AttractionCustomerAdded(attractionId, customerId, name, email, phone, birthDate, height, isPassportUser)).apply();
     }
 
     public void UpdateAttractionCustomerHeight(CustomerId customerId, Height height) {
@@ -83,10 +86,11 @@ public class Attraction extends AggregateEvent<AttractionId> {
         appendChange(new AttractionCustomerEmailUpdated(customerId, email)).apply();
     }
 
-    private void ChangeAttractionPassportUser(CustomerId customerId, IsPassportUser isPassportUser) {
+    private void ChangeAttractionPassportUser(AttractionId attractionId, CustomerId customerId, IsPassportUser isPassportUser) {
+        Objects.requireNonNull(attractionId);
         Objects.requireNonNull(customerId);
         Objects.requireNonNull(isPassportUser);
-        appendChange(new AttractionPassportUserChanged(customerId, isPassportUser)).apply();
+        appendChange(new AttractionPassportUserChanged(attractionId, customerId, isPassportUser)).apply();
     }
 
     private void UpdateOperatorPhone(OperatorId operatorId, Phone phone) {

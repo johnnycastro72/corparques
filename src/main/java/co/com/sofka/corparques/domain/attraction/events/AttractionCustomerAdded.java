@@ -1,5 +1,6 @@
 package co.com.sofka.corparques.domain.attraction.events;
 
+import co.com.sofka.corparques.domain.attraction.values.AttractionId;
 import co.com.sofka.corparques.domain.attraction.values.BirthDate;
 import co.com.sofka.corparques.domain.attraction.values.Height;
 import co.com.sofka.corparques.domain.attraction.values.IsPassportUser;
@@ -10,6 +11,7 @@ import co.com.sofka.corparques.domain.generic.values.Phone;
 import co.com.sofka.domain.generic.DomainEvent;
 
 public class AttractionCustomerAdded extends DomainEvent {
+    private final AttractionId attractionId;
     private final CustomerId customerId;
     private final Name name;
     private final Email email;
@@ -18,8 +20,9 @@ public class AttractionCustomerAdded extends DomainEvent {
     private final Height height;
     private final IsPassportUser isPassportUser;
 
-    public AttractionCustomerAdded(CustomerId customerId, Name name, Email email, Phone phone, BirthDate birthDate, Height height, IsPassportUser isPassportUser) {
+    public AttractionCustomerAdded(AttractionId attractionId, CustomerId customerId, Name name, Email email, Phone phone, BirthDate birthDate, Height height, IsPassportUser isPassportUser) {
         super("corparques.sofka.attractioncustomeradded");
+        this.attractionId = attractionId;
         this.customerId = customerId;
         this.name = name;
         this.email = email;
@@ -27,6 +30,10 @@ public class AttractionCustomerAdded extends DomainEvent {
         this.birthDate = birthDate;
         this.height = height;
         this.isPassportUser = isPassportUser;
+    }
+
+    public AttractionId attractionId() {
+        return attractionId;
     }
 
     public CustomerId customerId() {
