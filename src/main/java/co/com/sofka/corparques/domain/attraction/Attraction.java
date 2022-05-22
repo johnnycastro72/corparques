@@ -97,16 +97,18 @@ public class Attraction extends AggregateEvent<AttractionId> {
         appendChange(new AttractionPassportUserChanged(attractionId, customerId, isPassportUser)).apply();
     }
 
-    public void UpdateOperatorPhone(OperatorId operatorId, Phone phone) {
+    public void UpdateOperatorPhone(AttractionId attractionId, OperatorId operatorId, Phone phone) {
+        Objects.requireNonNull(attractionId);
         Objects.requireNonNull(operatorId);
         Objects.requireNonNull(phone);
-        appendChange(new OperatorPhoneUpdated(operatorId, phone)).apply();
+        appendChange(new OperatorPhoneUpdated(attractionId, operatorId, phone)).apply();
     }
 
-    public void UpdateOperatorEmail(OperatorId operatorId, Email email) {
+    public void UpdateOperatorEmail(AttractionId attractionId, OperatorId operatorId, Email email) {
+        Objects.requireNonNull(attractionId);
         Objects.requireNonNull(operatorId);
         Objects.requireNonNull(email);
-        appendChange(new OperatorEmailUpdated(operatorId, email)).apply();
+        appendChange(new OperatorEmailUpdated(attractionId, operatorId, email)).apply();
     }
 
     public void ChangeOperatorClothes(AttractionId attractionId, OperatorId operatorId, Clothes clothes) {
@@ -116,16 +118,18 @@ public class Attraction extends AggregateEvent<AttractionId> {
         appendChange(new OperatorClothesChanged(attractionId, operatorId, clothes)).apply();
     }
 
-    public void UpdateCashierPhone(CashierId cashierId, Phone phone) {
+    public void UpdateCashierPhone(AttractionId attractionId, CashierId cashierId, Phone phone) {
+        Objects.requireNonNull(attractionId);
         Objects.requireNonNull(cashierId);
         Objects.requireNonNull(phone);
-        appendChange(new CashierPhoneUpdated(cashierId, phone)).apply();
+        appendChange(new CashierPhoneUpdated(attractionId, cashierId, phone)).apply();
     }
 
-    public void UpdateCashierEmail(CashierId cashierId, Email email) {
+    public void UpdateCashierEmail(AttractionId attractionId, CashierId cashierId, Email email) {
+        Objects.requireNonNull(attractionId);
         Objects.requireNonNull(cashierId);
         Objects.requireNonNull(email);
-        appendChange(new CashierEmailUpdated(cashierId, email)).apply();
+        appendChange(new CashierEmailUpdated(attractionId, cashierId, email)).apply();
     }
 
     protected Optional<AttractionCustomer> getCustomerById(CustomerId customerId) {
